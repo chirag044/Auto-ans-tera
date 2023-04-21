@@ -1,0 +1,25 @@
+---
+- name: Install and configure Apache web server
+  package:
+    name: httpd
+    state: latest
+
+- name: Create files on the automation server
+  copy:
+    content: "{{ inventory_hostname }}"
+    dest: "/tmp/vm{{ ansible_play_hosts.index(inventory_hostname) + 1 }}.html"
+  delegate_to: localhost
+  become: no
+
+- name: Copy the files to respective managed nodes
+  copy:
+    src: "/tmp/vm{{ ansible_play_hosts.index(inventory_hostname) + 1 }}.html"
+    dest: /var/www/html/index.html
+    mode: 0444
+
+- name: Start the Apache web server
+  service:
+    name: httpd
+    state: started
+    enabled: yes
+  notify: restart apache
