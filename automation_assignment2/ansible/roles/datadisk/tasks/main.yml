@@ -16,8 +16,8 @@
     part_start: "{{ item.start }}"
     part_end: "{{ item.end }}"
   loop:
-    - { number: 1, start: '0%', end: '40%' }
-    - { number: 2, start: '40%', end: '100%' }
+    - { number: 1, start: '0%', end: '4GB' }
+    - { number: 2, start: '4GB', end: '100%' }
 
 - name: Create filesystem on partitions
   filesystem:
