@@ -17,7 +17,7 @@
   authorized_key:
     user: "{{ item }}"
     state: present
-    key: "{{ lookup('file', 'files/{{ item }}_pub_key') }}"
+    key: "{{ lookup('file', '{{ item }}_pub') }}"
   loop:
     - user1000
     - user2000
